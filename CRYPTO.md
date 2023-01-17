@@ -170,8 +170,7 @@ Cụ thể là lỗi sources of randomness khi tạo khóa RSA. Một số trìn
 Code solve bài này:
 ```
 from math import *
-from egcd import egcd
-from Crypto.Util.number import long_to_bytes
+from Crypto.Util.number import *
 
 N1 = 15352779128347791007085648503432481424157803925393171911336519959303041912793003445150925254969419519884885627602949531418218225326241330358578677264291299499045156352856967773874092740247954469116785697497470359167464514847916796070937222502678650971142025027485709803661507504065663359734963995261557205074306680610789459371027709841983679828401650412118581758223828022880963792279486668571818011466055318488192646258947512800694294415085962951256371066608809290272610036677808985446462843978518062681057733507143078031646346208413485310265372217830403150353055860675112625586559711701385861569315220697333861624379
 # N1 = q1.p1
@@ -187,31 +186,11 @@ c2 = 148856079733758890070785191231009741152253537006831458483469408302158422962
 q1 = gcd(N1,N2)
 p1 = N1 // q1  
 
-# a^-1 mod m
-def invm(m, a):
-	g, x, y = egcd(a, m)
-	if g != 1:
-		return None  # modular inverse does not exist
-	else:
-		return x % m
+# cql d1 = e^-1 mod phi(N1)
+d1 = inverse(e, (p1-1)*(q1-1))
 
-d1 = invm((p1-1)*(q1-1), e)
-
-# Calulate a**k modulo m.
-def expm(a, k, n):
-	r = 1
-	bits = list(bin(k)[2:])
-	for bit in bits:
-		r = (r * r) % n
-		if int(bit) == 1:
-			r = (r * a) % n
-	return r
-
-# decrypt a cipher c, with private key d using modulus n
-def rsaDec(n,d,c):
-	return expm(c, d, n)
-
-plain = rsaDec(N1, d1, c1)
+# decrypt RSA to plain (c1^d1 mod N1)
+plain = pow(c1, d1, N1)
 
 # convert to text
 plaintext = long_to_bytes(plain1)
