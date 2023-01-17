@@ -186,7 +186,7 @@ c2 = 148856079733758890070785191231009741152253537006831458483469408302158422962
 q1 = gcd(N1,N2)
 p1 = N1 // q1  
 
-# cql d1 = e^-1 mod phi(N1)
+# cal d1 = e^-1 mod phi(N1)
 d1 = inverse(e, (p1-1)*(q1-1))
 
 # decrypt RSA to plain (c1^d1 mod N1)
