@@ -96,6 +96,8 @@ Payload hoàn chỉnh là: http://47.254.251.2:8889/?1=240610708&2=QNKCDZO&3[]='
 Flag: `KCSC{B0_u_Bu_S4C_8usssssss_https://www.youtube.com/watch?v=xQtC3F8fH6g}`
 
 
+** 2 bài bên dưới mình chưa solve được trong thời gian diễn ra do mình chưa biết đến RequestBin của Pipedream để thu thập các request trên webhook và mình mới tìm hiểu về web exploitation khoảng vài tháng gần đây. Tuy nhiên mình biết đúng payload để exploit và sau khi kết thúc giải, mình xem writeup của 1 số bạn và hoàn thành 2 chall này =(( **
+
 ## Hi Hi Hi
 
 Đề bài: http://146.190.115.228:20109/
@@ -169,8 +171,3 @@ Decode base64 ta nhận được flag:
 ![image](https://user-images.githubusercontent.com/80137840/213679811-7b8587dd-8c4c-43b2-993a-7bf987ac401d.png)
 
 Flag: `KCSC{blind_xxD_xxO_xx]_xxe!!@#@}`
-
-
-
-
-
